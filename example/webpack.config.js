@@ -1,48 +1,34 @@
-/* eslint-disable */
-var webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
-  debug: true,
-  devtool: 'source-map',
+  mode: 'development',
   entry: {
-    app: __dirname + '/js/index.js'
+    index: [path.join(__dirname, 'main.js')],
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel',
+        loader: 'babel-loader',
       },
       {
         test: /\.css$/,
-        loaders: ['style', 'css']
-      }
-    ]
+        use: [
+          'style-loader',
+          'css-loader',
+        ],
+      },
+      {
+        test: /\.png$/,
+        use: ['file-loader'],
+      },
+    ],
   },
   output: {
-    path: __dirname + '/build/',
-    filename: '[name].js',
-    publicPath: 'http://localhost:8000/build'
+    filename: 'bundle.js',
   },
-  plugins: [
-    new webpack.DefinePlugin({
-      'process.env': {
-        'NODE_ENV': '"development"'
-      }
-    }),
-    new webpack.NoErrorsPlugin(),
-  ],
-  devServer: {
-    colors: true,
-    contentBase: __dirname,
-    historyApiFallback: true,
-    hot: false,
-    inline: true,
-    port: 8000,
-    progress: true,
-    stats: {
-      cached: false
-    }
-  }
+  serve: {
+    content: [__dirname],
+  },
 };
