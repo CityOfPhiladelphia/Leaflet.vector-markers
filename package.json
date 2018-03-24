@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Vector icons for Leaflet markers",
   "author": "City of Philadelphia <maps@phila.gov>",
-  "main": "dist/leaflet-vector-markers.js",
+  "main": "dist/leaflet-vector-icon.js",
   "scripts": {
     "build": "rollup -c",
     "dev": "yarn build -w",
