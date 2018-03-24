@@ -18,7 +18,7 @@ export default {
     file: `dist/${name}.js`,
     format: 'umd',
     // TODO can this patch L?
-    name: 'leafletVectorMarkers',
+    name: 'leafletVectorIcon',
     globals,
     sourcemap: true,
   },
