@@ -1,20 +1,8 @@
 {
   "name": "leaflet-vector-icon",
   "version": "1.0.0",
-  "description": "Vector SVG markers for Leaflet, with an option for Font Awesome/Twitter Bootstrap icons. Forked by the City of Philadelphia.",
+  "description": "Vector icons for Leaflet markers",
   "author": "City of Philadelphia <maps@phila.gov>",
-  "keywords": [
-    "Leaflet",
-    "Markers",
-    "Map",
-    "SVG",
-    "Vector",
-    "Icon"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/CityOfPhiladelphia/leaflet-vector-markers"
-  },
   "main": "dist/leaflet-vector-markers.js",
   "scripts": {
     "build": "rollup -c",
