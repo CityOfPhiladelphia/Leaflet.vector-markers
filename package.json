@@ -2,27 +2,23 @@
   "name": "leaflet-vector-markers",
   "version": "1.0.0",
   "description": "Vector SVG markers for Leaflet, with an option for Font Awesome/Twitter Bootstrap icons. Forked by the City of Philadelphia.",
-  "main": "dist/leaflet-vector-markers.js",
+  "author": "City of Philadelphia <maps@phila.gov>",
+  "keywords": [
+    "Leaflet",
+    "Markers",
+    "Map",
+    "SVG",
+    "Vector",
+    "Icon"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/CityOfPhiladelphia/leaflet-vector-markers"
   },
+  "main": "dist/leaflet-vector-markers.js",
   "scripts": {
-    "clean:lib": "rm -Rf ./lib",
-    "compile:lib": "babel src --out-dir lib",
-    "build:lib": "npm run clean:lib && npm run compile:lib",
-    "build:dist": "webpack src/index.js dist/leaflet-vector-markers.js && webpack -p src/index.js dist/leaflet-vector-markers.min.js && webpack src/leaflet-vector-markers.scss dist/leaflet-vector-markers.css",
-    "build": "npm run build:lib && npm run build:dist",
-    "watch": "babel src --watch --out-dir lib",
-    "start": "npm run lint && npm run test && npm run build",
-    "test": "jest --coverage",
-    "test:watch": "jest --watch",
-    "onchange": "onchange 'src/*.js' 'src/**/*.js' -- npm run lintAndTest",
-    "dev": "npm run watch & npm run onchange",
-    "prepublish": "npm ls && npm start",
-    "examples": "webpack-dev-server --config ./examples/webpack.config.js",
-    "lint": "eslint ./src",
-    "lintAndTest": "npm run lint && jest"
+    "build": "rollup -c",
+    "dev": "yarn build -w"
   },
   "peerDependencies": {
     "leaflet": "^1.3.1"
@@ -45,32 +41,5 @@
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   },
-  "keywords": [
-    "Leaflet",
-    "Markers",
-    "Map",
-    "SVG",
-    "Vector",
-    "Icon"
-  ],
-  "author": "Mathias Maisberger <mathias@hiasinho.com>",
-  "licenses": {
-    "type": "MIT",
-    "url": "http://www.opensource.org/licenses/mit-license.php"
-  },
-  "bugs": {
-    "url": "https://github.com/hiasinho/Leaflet.vector-markers/issues"
-  },
-  "homepage": "https://github.com/hiasinho/Leaflet.vector-markers",
-  "jest": {
-    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
-    "unmockedModulePathPatterns": [
-      "<rootDir>/node_modules/fbjs",
-      "<rootDir>/node_modules/jest-cli",
-      "<rootDir>/node_modules/leaflet",
-      "<rootDir>/src/index",
-      "<rootDir>/src/Icon",
-      "<rootDir>/src/VectorMarkers"
-    ]
   }
 }
