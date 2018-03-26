@@ -1,6 +1,9 @@
 import { Map, TileLayer, Marker } from 'leaflet';
 import VectorIcon from '../dist/leaflet-vector-icon';
+
+// styles
 import 'leaflet/dist/leaflet.css';
+import 'font-awesome/css/font-awesome.min.css';
 import '../dist/leaflet-vector-icon.css';
 
 const map = new Map('map').setView([48.15491,11.54183], 14);
