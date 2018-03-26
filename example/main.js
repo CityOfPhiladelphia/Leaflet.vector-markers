@@ -15,9 +15,7 @@ new TileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 
 new Marker([48.15491,11.54183], {
   icon: new VectorIcon({
-    icon: 'spinner',
-    prefix: 'fa',
-    markerColor: '#cb4b16',
-    spin: true,
+    icon: 'circle',
+    markerColor: '#2176d2',
   })
 }).addTo(map);
