@@ -97,30 +97,35 @@
     };
 
     VectorIcon.prototype._setIconStyles = function _setIconStyles (img, name) {
-      var options = this.options;
-      var size = new leaflet.Point(options[(name === 'shadow' ? 'shadowSize' : 'iconSize')]);
-      var anchor = void 0;
+      var ref = this;
+      var options = ref.options;
+      var size;
+      var anchor;
 
+      // get size and anchor coords
       if (name === 'shadow') {
-        anchor = new leaflet.Point(options.shadowAnchor || options.iconAnchor);
+        size = options.shadowSize;
+        anchor = options.shadowAnchor || options.iconAnchor;
       } else {
-        anchor = new leaflet.Point(options.iconAnchor);
+        size = options.iconSize;
+        anchor = options.iconAnchor;
       }
 
+      // if anchor wasn't specified, default to one-half the size
       if (!anchor && size) {
-        anchor = size.divideBy(2, true);
+        anchor = size.map(function (n) { return n / 2; });
       }
 
       img.className = "vector-marker-" + name + " " + (options.className);
 
       if (anchor) {
-        img.style.marginLeft = (-anchor.x) + 'px';
-        img.style.marginTop = (-anchor.y) + 'px';
+        img.style.marginLeft = (-anchor[0]) + "px";
+        img.style.marginTop = (-anchor[1]) + "px";
       }
 
       if (size) {
-        img.style.width = size.x + 'px';
-        img.style.height = size.y + 'px';
+        img.style.width = (size[0]) + "px";
+        img.style.height = (size[1]) + "px";
       }
     };
 

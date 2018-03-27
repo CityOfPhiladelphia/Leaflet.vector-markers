@@ -88,30 +88,34 @@ export default class VectorIcon extends Icon {
   }
 
   _setIconStyles(img, name) {
-    const options = this.options;
-    const size = new Point(options[(name === 'shadow' ? 'shadowSize' : 'iconSize')]);
-    let anchor = void 0;
+    const { options } = this;
+    let size;
+    let anchor;
 
+    // get size and anchor coords
     if (name === 'shadow') {
-      anchor = new Point(options.shadowAnchor || options.iconAnchor);
+      size = options.shadowSize;
+      anchor = options.shadowAnchor || options.iconAnchor;
     } else {
-      anchor = new Point(options.iconAnchor);
+      size = options.iconSize;
+      anchor = options.iconAnchor;
     }
 
+    // if anchor wasn't specified, default to one-half the size
     if (!anchor && size) {
-      anchor = size.divideBy(2, true);
+      anchor = size.map(n => n / 2);
     }
 
     img.className = `vector-marker-${name} ${options.className}`;
 
     if (anchor) {
-      img.style.marginLeft = (-anchor.x) + 'px';
-      img.style.marginTop = (-anchor.y) + 'px';
+      img.style.marginLeft = `${-anchor[0]}px`;
+      img.style.marginTop = `${-anchor[1]}px`;
     }
 
     if (size) {
-      img.style.width = size.x + 'px';
-      img.style.height = size.y + 'px';
+      img.style.width = `${size[0]}px`;
+      img.style.height = `${size[1]}px`;
     }
   }
 };
