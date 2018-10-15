@@ -1,8 +1,10 @@
+// console.log('index.js vector icon')
+
 import { Util, Point, Icon } from 'leaflet';
 
 const iconOptions = {
-  iconSize: [30, 50],
-  iconAnchor: [15, 50],
+  iconSize: [100, 100],
+  iconAnchor: [50, 50],
   popupAnchor: [2, -40],
   shadowAnchor: [39, 45],
   shadowSize: [54, 51],
@@ -12,17 +14,28 @@ const iconOptions = {
   extraIconClasses: '',
   extraDivClasses: '',
   icon: 'home',
-  markerColor: 'blue',
+  markerColor: 'red',
   iconColor: 'white',
   viewBox: '0 0 32 52',
 };
 
-const defaultPin = 'M16,1 C7.7146,1 1,7.65636364 1,15.8648485 C1,24.0760606 16,51 16,51 C16,51 31,24.0760606 31,15.8648485 C31,7.65636364 24.2815,1 16,1 L16,1 Z';
-
 export default class VectorIcon extends Icon {
   constructor(options) {
+    // console.log('constructor')
+    if (options.icon.size) {
+      // console.log('options.icon.size:', options.icon.size);
+      const size = options.icon.size;
+      // options.iconSize = [10, 10];
+      // options.iconAnchor = [5, 5];
+      options.iconSize = [size*2, size*2];
+      options.iconAnchor = [size, size];
+      // options.shadowSize = [size, size];
+      // options.shadowAnchor = [size-size*0.2, size-size*0.1];
+    } else {
+      options.icon.size = 50;
+    }
+    // console.log('iconOptions:', iconOptions, 'options:', options);
     super(options);
-
     Util.setOptions(this, iconOptions);
     Util.setOptions(this, options);
   }
@@ -30,13 +43,9 @@ export default class VectorIcon extends Icon {
   createIcon(oldIcon) {
     const div = (oldIcon && oldIcon.tagName === 'DIV' ? oldIcon : document.createElement('div'));
     const { options } = this;
-    const pinPath = options.mapPin || defaultPin;
+    const icon = options.icon;
+    div.innerHTML = `<i class="` + icon.prefix + ` fa-` + icon.icon + `" style="color:` + options.markerColor + `; width: ` + icon.size + `px; height: `+ icon.size + `px"></i>`;
 
-    div.innerHTML = `<svg width="${options.iconSize[0]}px" height="${options.iconSize[1]}px" viewBox="${options.viewBox}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path d="${pinPath}" fill="${options.markerColor}"></path></svg>`;
-
-    if (options.icon) {
-      div.appendChild(this._createInner());
-    }
 
     options.className += options.className.length > 0 ? ' ' + options.extraDivClasses : options.extraDivClasses;
     this._setIconStyles(div, 'icon');
@@ -46,46 +55,57 @@ export default class VectorIcon extends Icon {
   }
 
   createShadow() {
-    const div = document.createElement('div');
-    this._setIconStyles(div, 'shadow');
-
-    return div;
+    const { options } = this;
+    // console.log('createShadow is running, options:', options);
+    if (options.icon.shadow == true) {
+      // console.log('createShadow if is running');
+      const div = document.createElement('div');
+      this._setIconStyles(div, 'shadow');
+      // const size = options.icon.size;
+      // div.style.boxshadow = size + 'px -10px 10px rgba(0,0,0,0.4)'
+      return div;
+    }
+    // else {
+    //   return;
+    // }
   }
 
-  _createInner() {
-    const i = document.createElement('i');
-    const options = this.options;
+    // document.getElementsByClassName("vector-marker-shadow").style["boxShadow"] = "0 0 5px #999999";
 
-    i.classList.add(options.prefix);
-
-    if (options.extraClasses) {
-      i.classList.add(options.extraClasses);
-    }
-
-    if (options.prefix) {
-      i.classList.add(options.prefix + '-' + options.icon);
-    } else {
-      i.classList.add(options.icon);
-    }
-
-    if (options.spin && typeof options.spinClass === 'string') {
-      i.classList.add(options.spinClass);
-    }
-
-    if (options.iconColor) {
-      if (options.iconColor === 'white' || options.iconColor === 'black') {
-        i.classList.add('icon-' + options.iconColor);
-      } else {
-        i.style.color = options.iconColor;
-      }
-    }
-
-    if (options.iconSize) {
-      i.style.width = options.iconSize[0] + 'px';
-    }
-
-    return i;
-  }
+  // _createInner() {
+  //   const i = document.createElement('i');
+  //   const options = this.options;
+  //
+  //   i.classList.add(options.prefix);
+  //
+  //   if (options.extraClasses) {
+  //     i.classList.add(options.extraClasses);
+  //   }
+  //
+  //   if (options.prefix) {
+  //     i.classList.add(options.prefix + '-' + options.icon);
+  //   } else {
+  //     i.classList.add(options.icon);
+  //   }
+  //
+  //   if (options.spin && typeof options.spinClass === 'string') {
+  //     i.classList.add(options.spinClass);
+  //   }
+  //
+  //   if (options.iconColor) {
+  //     if (options.iconColor === 'white' || options.iconColor === 'black') {
+  //       i.classList.add('icon-' + options.iconColor);
+  //     } else {
+  //       i.style.color = options.iconColor;
+  //     }
+  //   }
+  //
+  //   if (options.iconSize) {
+  //     i.style.width = options.iconSize[0] + 'px';
+  //   }
+  //
+  //   return i;
+  // }
 
   _setIconStyles(img, name) {
     const { options } = this;
@@ -100,6 +120,7 @@ export default class VectorIcon extends Icon {
       size = options.iconSize;
       anchor = options.iconAnchor;
     }
+
 
     // if anchor wasn't specified, default to one-half the size
     if (!anchor && size) {
@@ -117,5 +138,12 @@ export default class VectorIcon extends Icon {
       img.style.width = `${size[0]}px`;
       img.style.height = `${size[1]}px`;
     }
+
+    // this.testFunc()
   }
+
+  // testFunc() {
+  //   console.log('testFunc is running');
+  //   document.getElementsByClassName("vector-marker-shadow").style["boxShadow"] = "0 0 5px #999999";
+  // }
 };
