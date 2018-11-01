@@ -31,7 +31,5 @@
     "webpack": "^4.2.0",
     "webpack-serve": "^0.2.0"
   },
-  "dependencies": {
-    "@fortawesome/fontawesome-pro": "^5.4.0"
-  }
+  "dependencies": {}
 }
