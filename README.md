@@ -4,6 +4,8 @@ This was forked from (Leaflet.vector-markers)[https://github.com/hiasinho/Leafle
 
 The CityOfPhiladelphia fork of this repo allows fontawesome 5 icons to be put on the map.
 
+There is more information about all forked repos in the [phila-vue-mapping wiki](https://github.com/CityOfPhiladelphia/phila-vue-mapping/wiki/ForkedDependencies)
+
 
 
 -----------------------------------------------------------------------------
