@@ -1,5 +1,12 @@
-Leaflet.vector-markers
-======================
+# CityOfPhiladelphia's fork "leaflet-vector-icon"
+
+This was forked from (Leaflet.vector-markers)[https://github.com/hiasinho/Leaflet.vector-markers], and the name was changed.
+
+The CityOfPhiladelphia fork of this repo allows fontawesome 5 icons to be put on the map.
+
+
+
+-----------------------------------------------------------------------------
 
 Vector SVG markers for Leaflet, with an option for Font Awesome/Twitter Bootstrap/Maki icons.
 
